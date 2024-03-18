@@ -12,30 +12,17 @@ router.post('/signup', async (req, res) => {
         const existingUser = await User.findOne({ username });
         if (existingUser) {
             return res.status(400).json({ message: 'El usuario ya existe' });
-        }
+        }else{
         // Crear un nuevo usuario
         const newUser = new User({ username, password });
         await newUser.save();
-        res.status(201).json({ message: 'Usuario creado correctamente' });
+        res.status(201).json({ message: 'Usuario creado correctamente' })};
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 });
 
 
-
-router.post('/login', async (req, res) => {
-    const { username, password } = req.body;
-    try {
-        const user = await User.findOne({ username, password });
-        if (!user) {
-            return res.status(401).json({ message: 'Invalid username or password' });
-        }
-        res.json({ message: 'Login successful' });
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
 
 
 
@@ -78,7 +65,51 @@ router.delete('/users/:id', async (req, res) => {
     }
 });
 
-module.exports = router;
+
+
+
+router.post('/user/login', async (req, res) => {
+   
+    
+        try {
+            const { username, password } = req.body;
+
+            const userDB = await User.findOne({ username });
+
+           
+            if (!userDB) {
+                
+                return res.status(404).send({ msg: 'El usuario no existe en la base de datos' });
+                
+            }
+           
+          
+            const isValidPassword = await password==userDB.password;
+            if (!isValidPassword) {
+                return res.status(401).send({ msg: 'El nombre de usuario o la contraseña son incorrectos' });
+            }
+            
+           
+            
+
+            return res.status(200).send({
+                ok:true,
+                msg:'Login correcto',
+                user : userDB
+
+            })
+            
+        } catch (error) {
+
+            res.status(400).send(error);
+            
+        }
+  
+      
+       
+   
+});
+
 
 module.exports = router;
 
@@ -91,4 +122,3 @@ module.exports = router;
 
 
 
-module.exports = router;
