@@ -12,8 +12,11 @@ app.use('/auth', authRoutes);
 
 
 // Conectar a la base de datos MongoDB
+{/*`mongodb+srv://koki:${'2541Koki'}@cluster0.t72sj29.mongodb.net/escuela?retryWrites=true&w=majority&appName=Cluster0`*/}
+
 mongoose.connect(`mongodb+srv://koki:${'2541Koki'}@cluster0.t72sj29.mongodb.net/escuela?retryWrites=true&w=majority&appName=Cluster0`,
- {
+
+{
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {

@@ -90,7 +90,7 @@ router.post('/user/login', async (req, res) => {
             }
             
            
-            
+            userDB.password=undefined;
 
             return res.status(200).send({
                 ok:true,
