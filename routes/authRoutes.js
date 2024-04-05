@@ -38,11 +38,12 @@ router.get('/users', async (req, res) => {
 router.get('/user/:id', async (req, res) => {
     const userId = req.params.id;
     try {
-        const user = await User.findById(userId, 'username password');
+        const user = await User.findById(userId);
         if (!user) {
             return res.status(404).json({ message: 'Usuario no encontrado' });
         }
-        res.json(user);
+       
+        res.status(200).send({user:user});
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
@@ -51,7 +52,7 @@ router.get('/user/:id', async (req, res) => {
 
 
 // Ruta para borrar un usuario por su ID
-router.delete('/users/:id', async (req, res) => {
+router.delete('/user/:id', async (req, res) => {
     const userId = req.params.id;
     try {
         // Buscar el usuario por su ID y borrarlo
@@ -68,22 +69,16 @@ router.delete('/users/:id', async (req, res) => {
 
 
 
-router.post('/user/login', async (req, res) => {
-   
+router.post('/user/login', async (req, res) => {  
     
         try {
             const { username, password } = req.body;
 
-            const userDB = await User.findOne({ username });
-
-           
-            if (!userDB) {
-                
-                return res.status(404).send({ msg: 'El usuario no existe en la base de datos' });
-                
+            const userDB = await User.findOne({ username });           
+            if (!userDB) {                
+                return res.status(404).send({ msg: 'El usuario no existe en la base de datos' });                
             }
-           
-          
+                     
             const isValidPassword = await password==userDB.password;
             if (!isValidPassword) {
                 return res.status(401).send({ msg: 'El nombre de usuario o la contraseña son incorrectos' });

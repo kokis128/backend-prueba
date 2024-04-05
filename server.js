@@ -1,6 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
+const materiasRoutes = require('./routes/materiasRoutes');
+const clasesRoutes = require('./routes/clasesRoutes');
+const estudiantesRoutes = require('./routes/estudiantesRoutes');
 const cors = require('cors')
 
 const app = express();
@@ -8,7 +11,10 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use('/auth', authRoutes);
+app.use('/api', authRoutes);
+app.use('/api', materiasRoutes);
+app.use('/api', clasesRoutes);
+app.use('/api', estudiantesRoutes);
 
 
 // Conectar a la base de datos MongoDB
@@ -24,11 +30,6 @@ mongoose.connect(`mongodb+srv://koki:${'2541Koki'}@cluster0.t72sj29.mongodb.net/
 }).catch(err => {
     console.error("Error de conexión a MongoDB:", err);
 });
-
-
-
-
-
 
 
 // Manejar rutas no encontradas
