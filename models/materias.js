@@ -27,12 +27,8 @@ const materiaSchema = new mongoose.Schema({
         maxlength: 10  
        
     },
-    turno:{
-        type: String,
-        required:true,
-        maxlength: 10  
-       
-    },
+
+    
         dia: { type: String, required: true},
         horaInicio: { type: String, required: true },
         horaFin: { type: String, required: true },

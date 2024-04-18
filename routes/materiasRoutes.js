@@ -25,6 +25,7 @@ router.post('/materia', async (req, res) => {
 router.get('/materias', async (req, res) => {
     try {
         const materias = await Materia.find({}); 
+                                       
         res.json(materias);
     } catch (err) {
         res.status(500).json({ message: err.message });

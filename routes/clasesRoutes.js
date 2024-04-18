@@ -21,7 +21,7 @@ router.post('/clase', async (req, res) => {
 
 router.get('/clases', async (req, res) => {
     try {
-        const Clases = await Clase.find({}); 
+        const Clases = await Clase.find({}).populate('materiaId');; 
         res.json(Clases);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -53,11 +53,7 @@ const itemsToSkip = req.query.page * 2;
                                     .populate('materiaId')
 
     const claseTotal = await Clase.countDocuments(searchParams)
-   res.send({
-    clases:clasesDb,
-    total:claseTotal
-
-   });
+   res.json(clases);
 } catch (error) {
     res.send(error);
 }
