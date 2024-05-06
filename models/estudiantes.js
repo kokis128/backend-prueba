@@ -16,22 +16,21 @@ const estudianteSchema = new mongoose.Schema({
       
     },
 
-    curso:{
+    dni:{
         type: String,
+        maxlength: 8,
+        required:true
      },
-
-   
-
-   
+        
     observaciones:{
         type: String,
         maxlength: 100
     },        
        
         
-        claseId:{
+        materiaId:{
             type:String,
-            ref:'Clases'
+            ref:'Materias'
         }
 
 }

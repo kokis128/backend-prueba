@@ -51,7 +51,7 @@ try {
                                     .limit(itemPerPage)
                                     .skip(itemsToSkip)
                                     .sort({nombre:-1})
-                                    .populate('claseId')
+                                    .populate('materiaId')
 
     const estudiantesTotal = await Estudiante.countDocuments(searchParams)
    res.send({

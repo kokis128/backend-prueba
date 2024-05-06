@@ -4,9 +4,19 @@ const Schema = mongoose.Schema;
 
 const claseSchema = new mongoose.Schema({
 
-    fecha:{
-        type:Schema.Types.Date, required:true, default:Date.now
-     },
+    fecha: {
+        type: Date,
+        required: true,
+        default: Date.now
+    },
+    hora: {
+        type: Schema.Types.String,
+        required: true,
+        default: () => {
+            const now = new Date();
+            return now.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit', hour12: false });
+    }
+},
 
 
     tema: {
@@ -17,9 +27,7 @@ const claseSchema = new mongoose.Schema({
         type: Number,
             
       
-    },
-
-   
+    },   
 
     asistencia:{
         type:String,
@@ -42,17 +50,27 @@ const claseSchema = new mongoose.Schema({
         type: String,
         maxlength: 150
     },        
-        uptateAt: {
-            type: Schema.Types.Date
-        },
+       
         
         materiaId:{
-            type:String,
+            type: mongoose.Schema.Types.ObjectId,
             ref:'Materia'
         }
+       
 
 }
 );
+claseSchema.methods.formatearFecha = function() {
+    const formattedDate = this.fecha.toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    return formattedDate;
+};
+
+// Middleware para formatear la fecha antes de guardarla
+claseSchema.pre('save', function(next) {
+    this.fecha = this.formatearFecha(); // Llama al método formatearFecha
+    next();
+});
+
 
 
 module.exports = mongoose.model('Clase', claseSchema);
