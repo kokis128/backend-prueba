@@ -21,7 +21,7 @@ router.post('/clase', async (req, res) => {
 
 router.get('/clases', async (req, res) => {
     try {
-        const Clases = await Clase.find({}).populate('materiaId');; 
+        const Clases = await Clase.find({}).populate('materiaId');
         res.json(Clases);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -37,7 +37,7 @@ try {
 const itemPerPage=req.query.itemPerPage ? req.query.itemPerPage : 3 ;
 const itemsToSkip = req.query.page * 2;
    
-  const searchParams=await req.query.tema ?
+  const searchParams= req.query.tema ?
   
     
     {tema:

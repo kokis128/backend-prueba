@@ -1,19 +1,19 @@
 const express = require('express');
 const router = express.Router();
+const Materia = require('../models/materias');
 const Estudiante = require('../models/estudiantes');
+
 
 
 
 router.post('/estudiante', async (req, res) => {    
     try {
-        const  { nombre,apellido,curso } = req.body;
-        
-       
+        const  { nombre,apellido,dni,observaciones,materiaId } = req.body;
         
         // Crear un estudiante 
-        const newEstudiante = new Estudiante({ nombre,apellido,curso});
+        const newEstudiante = new Estudiante({ nombre,apellido,dni,observaciones,materiaId});
         await newEstudiante.save();
-        res.status(201).json({ message: 'Estudiante creada correctamente' });
+        res.status(201).json({ message: 'Estudiante creado correctamente'});
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
@@ -64,6 +64,42 @@ try {
 }
 
 
-})
+});
+
+
+router.put('/estudiante/:id/matricular', async (req, res) => {    
+    
+        const estudianteId =req.params.id;
+        const  {materiaId}  = req.body;
+        
+        console.log(materiaId)
+        
+        try{
+        const estudiante = await Estudiante.findById(estudianteId);
+        if(!estudiante) {
+            return res.status(404).json({ message: 'Estudiante no encontrado'});
+        }
+        const materia = await Materia.findById(materiaId);
+        if (!materia) {
+            return res.status(404).json({ message: 'Materia no encontrada' });
+        }
+        const isMatriculado = materia.estudiantes.includes(estudianteId);
+        console.log(isMatriculado)
+        if (isMatriculado) {
+            console.log('El estudiante ya esta matriculado');
+            return res.status(404).json({ message: 'El estudiante ya esta matriculado' });
+        }
+        console.log(isMatriculado)
+
+         materia.estudiantes.push(estudianteId);
+        await materia.save();
+        console.log(materia.estudiantes)
+        res.status(200).json({ message: 'Estudiante matriculado correctamente' });
+        
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 
 module.exports = router;

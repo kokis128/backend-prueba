@@ -3,9 +3,9 @@ const Schema = mongoose.Schema;
 
 
 
-var dias=['lunes','martes','miercoles','jueves','viernes'];
 
-const materiaSchema = new mongoose.Schema({
+
+const materiaSchema = new Schema({
 
     name: {
     type : String,
@@ -33,7 +33,8 @@ const materiaSchema = new mongoose.Schema({
         horaInicio: { type: String, required: true },
         horaFin: { type: String, required: true },
      
-        estudiantes: [{ type: Schema.Types.ObjectId, ref: 'Estudiante' }], // Referencia a estudiantes
+        estudiantes:[{type: 
+            mongoose.Schema.Types.ObjectId, ref: 'Estudiante' }], // Referencia a estudiantes
        
    
     observaciones:{
@@ -45,7 +46,7 @@ const materiaSchema = new mongoose.Schema({
         createdAt:{
             type:Schema.Types.Date, required:true, default:Date.now
                     },
-        uptateAt: {
+        updatedAt: {
             type: Schema.Types.Date
         },
         
@@ -56,9 +57,9 @@ const materiaSchema = new mongoose.Schema({
 
 }
 );
+const Materia = mongoose.model('Materia',materiaSchema);
 
-
-module.exports = mongoose.model('Materia', materiaSchema);
+module.exports = Materia;
 
 
 

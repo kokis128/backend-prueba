@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+
 
 
 const estudianteSchema = new mongoose.Schema({
@@ -17,24 +17,22 @@ const estudianteSchema = new mongoose.Schema({
     },
 
     dni:{
-        type: String,
+        type: String,        
         maxlength: 8,
-        required:true
      },
         
     observaciones:{
         type: String,
-        maxlength: 100
+       
     },        
        
         
-        materiaId:{
-            type:String,
-            ref:'Materias'
-        }
+    materiaId:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Materia'
+    }
 
 }
 );
-
 
 module.exports = mongoose.model('Estudiante', estudianteSchema);
