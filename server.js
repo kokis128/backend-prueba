@@ -5,6 +5,7 @@ const authRoutes = require('./routes/authRoutes');
 const materiasRoutes = require('./routes/materiasRoutes');
 const clasesRoutes = require('./routes/clasesRoutes');
 const estudiantesRoutes = require('./routes/estudiantesRoutes');
+const ausenciasRoutes = require('./routes/ausenciasRoutes');
 const cors = require('cors')
 
 
@@ -18,6 +19,7 @@ app.use('/api', authRoutes);
 app.use('/api', materiasRoutes);
 app.use('/api', clasesRoutes);
 app.use('/api', estudiantesRoutes);
+app.use('/api', ausenciasRoutes);
 
 
 // Conectar a la base de datos MongoDB
