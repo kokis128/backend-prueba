@@ -1,12 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-
-
-
-
 const materiaSchema = new Schema({
-
     name: {
     type : String,
     required: true,
@@ -15,7 +10,7 @@ const materiaSchema = new Schema({
 },
     curso: {
         type: String,
-        required:true,
+        
         maxlength: 10
        
       
@@ -23,15 +18,14 @@ const materiaSchema = new Schema({
 
     division:{
         type: String,
-        required:true,
         maxlength: 10  
        
     },
 
     
-        dia: { type: String, required: true},
-        horaInicio: { type: String, required: true },
-        horaFin: { type: String, required: true },
+        dia: { type: String},
+        horaInicio: { type: String},
+        horaFin: { type: String},
      
         estudiantes:[{type: 
             mongoose.Schema.Types.ObjectId, ref: 'Estudiante' }], // Referencia a estudiantes
