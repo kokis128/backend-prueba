@@ -21,12 +21,9 @@ const claseSchema = new mongoose.Schema({
 
     tema: {
     type : String,   
-   
 },
     numero: {
-        type: Number,
-            
-      
+        type: Number,      
     },   
 
     asistencia:{

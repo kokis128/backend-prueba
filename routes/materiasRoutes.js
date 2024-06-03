@@ -20,8 +20,6 @@ router.post('/materia', async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
-
-
 router.get('/materias', async (req, res) => {
     try {
         const materias = await Materia.find({}); 
@@ -41,7 +39,7 @@ try {
    const itemPerPage=req.query.itemPerPage ? req.query.itemPerPage : 3 ;
     const itemsToSkip = req.query.page * 2;
    
-  const searchParams=await req.query.name ?
+  const searchParams= req.query.name ?
   
     
     {name:
