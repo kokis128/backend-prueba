@@ -3,17 +3,13 @@ const mongoose = require('mongoose');
 
 
 const estudianteSchema = new mongoose.Schema({
-
     apellido: {
     type : String,   
-    required:true
-   
+    required:true   
 },
     nombre: {
         type: String,
-        required:true
-            
-      
+        required:true      
     },
 
     dni:{
@@ -22,11 +18,9 @@ const estudianteSchema = new mongoose.Schema({
      },
         
     observaciones:{
-        type: String,
-       
-    },        
-       
-        
+        type: String,       
+    },
+
     materiaId:{
         type: mongoose.Schema.Types.ObjectId,
         ref:'Materia'

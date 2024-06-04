@@ -10,7 +10,7 @@ router.post('/materia', async (req, res) => {
     try {
         const  { name,curso,division,dia,horaInicio,horaFin,observaciones,createdAt,userId } = req.body;
         
-        const MateriEX=Materia.findOne( name);
+        const MateriEX=Materia.findOne(name);
         
         // Crear una nueva materia
         const newMateria = new Materia({ name,curso,division,dia,horaInicio,horaFin,observaciones,createdAt,userId });

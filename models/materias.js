@@ -5,51 +5,43 @@ const materiaSchema = new Schema({
     name: {
     type : String,
     required: true,
-    maxlength: 20  
+    maxlength: 20 
    
 },
     curso: {
-        type: String,
-        
-        maxlength: 10
-       
-      
+        type: String,        
+        maxlength: 10     
     },
-
     division:{
         type: String,
-        maxlength: 10  
-       
+        maxlength: 10       
     },
-
-    
-        dia: { type: String},
-        horaInicio: { type: String},
-        horaFin: { type: String},
-     
-        estudiantes:[{type: 
-            mongoose.Schema.Types.ObjectId, ref: 'Estudiante' }], // Referencia a estudiantes
+    turno:{
+        type: String,
+        maxlength: 1 
        
-   
+    },    
+        dias: { type: String,
+                maxlength: 20
+        },
+
+        horarios:{type:String,
+                maxlength: 20
+        },
+        
+     
+    estudiantes:[{type: mongoose.Schema.Types.ObjectId, ref: 'Estudiante'}], // Referencia a estudiantes
+          
     observaciones:{
         type: String,
         maxlength: 100
     },
-  
-
-        createdAt:{
-            type:Schema.Types.Date, required:true, default:Date.now
-                    },
-        updatedAt: {
-            type: Schema.Types.Date
-        },
-        
-        userId:{
+         
+    userId:{
             type:String,
             ref:'User'
         }
-
-}
+    }
 );
 const Materia = mongoose.model('Materia',materiaSchema);
 
