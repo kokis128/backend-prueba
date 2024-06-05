@@ -87,7 +87,7 @@ router.put('/estudiante/:id/matricular', async (req, res) => {
         console.log(isMatriculado)
         if (isMatriculado) {
             console.log('El estudiante ya esta matriculado');
-            return res.status(404).json({ message: 'El estudiante ya esta matriculado' });
+            return res.status(404).json('El estudiante ya esta matriculado');
         }
         console.log(isMatriculado)
 
