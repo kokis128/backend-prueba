@@ -17,8 +17,6 @@ const claseSchema = new mongoose.Schema({
             return now.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit', hour12: false });
     }
 },
-
-
     tema: {
     type : String,   
 },
@@ -38,7 +36,7 @@ const claseSchema = new mongoose.Schema({
         type: String,
         maxlength: 150
     },
-    anotaciones:{
+    registro:{
         type: String,
         maxlength: 150
     },
@@ -47,8 +45,6 @@ const claseSchema = new mongoose.Schema({
         type: String,
         maxlength: 150
     },        
-       
-        
         materiaId:{
             type: mongoose.Schema.Types.ObjectId,
             ref:'Materia'

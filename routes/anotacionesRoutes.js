@@ -15,10 +15,11 @@ router.post('/register_anotaciones', async (req, res) => {
     return res.status(400).json({ success: false, message: 'Datos de anotaciones incompletos o incorrectos' });
   }
 
-  const anotacionesBd = anotaciones.map(({ student_id, anotacion }) => ({
+  const anotacionesBd = anotaciones.map(({ student_id, anotacion,registro  }) => ({
     student_id,
     materia_id,
-    anotacion
+    anotacion,
+    registro
   }));
 
   try {
