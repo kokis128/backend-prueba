@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Materia = require('../models/materias');
-const Estudiante = require('../models/estudiantes');
+
 const Anotacion = require('../models/anotaciones');
-const mongoose = require('mongoose');
+
 router.get('/planillas/:id', async (req, res) => {
     const _id = req.params.id
    
