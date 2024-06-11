@@ -53,17 +53,12 @@ const claseSchema = new mongoose.Schema({
 
 }
 );
-claseSchema.methods.formatearFecha = function() {
-    const formattedDate = this.fecha.toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric' });
-    return formattedDate;
-};
-
-// Middleware para formatear la fecha antes de guardarla
-claseSchema.pre('save', function(next) {
-    this.fecha = this.formatearFecha(); // Llama al método formatearFecha
-    next();
-});
 
 
 
-module.exports = mongoose.model('Clase', claseSchema);
+
+
+
+
+const Clase = mongoose.model('Clase', claseSchema);
+module.exports = Clase;
