@@ -23,6 +23,9 @@ const claseSchema = new mongoose.Schema({
     numero: {
         type: Number,      
     },   
+    unidad: {
+        type: Number,      
+    }, 
 
     asistencia:{
         type:String,
