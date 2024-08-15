@@ -47,11 +47,12 @@ const claseSchema = new mongoose.Schema({
     observaciones:{
         type: String,
         maxlength: 150
-    },        
+    },
+
         materiaId:{
             type: mongoose.Schema.Types.ObjectId,
             ref:'Materia'
-        }
+    }
        
 
 }

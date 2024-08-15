@@ -3,15 +3,17 @@ const router = express.Router();
 const Materia = require('../models/materias');
 const Estudiante = require('../models/estudiantes');
 
-
-
-
 router.post('/estudiante', async (req, res) => {    
     try {
-        const  { nombre,apellido,dni,observaciones,materiaId } = req.body;
-        
+        const  { nombre,apellido,dni,observaciones,materiaId,cursoId } = req.body;
+  
+        const estudianteBd = await Estudiante.findOne({dni});
+      
+      if(estudianteBd){
+       return res.status(400).json({message:'El Estudiante ya existe en la bd'})
+      }
         // Crear un estudiante 
-        const newEstudiante = new Estudiante({ nombre,apellido,dni,observaciones,materiaId});
+        const newEstudiante = new Estudiante({ nombre,apellido,dni,observaciones,materiaId,cursoId});
         await newEstudiante.save();
         res.status(201).json({ message: 'Estudiante creado correctamente'});
     } catch (err) {
@@ -65,6 +67,19 @@ try {
 
 
 });
+
+router.get('/estudiantes/:cursoId',async(req,res)=>{
+    const cursoId =req.params.cursoId;
+    console.log({cursoId});
+    try {
+        const estudiantes = await Estudiante.find({ cursoId });
+        res.status(200).json(estudiantes);
+        console.log(estudiantes);
+    } catch (error) {
+        res.status(500);
+        console.log(error);
+    }
+})
 
 
 router.put('/estudiante/:id/matricular', async (req, res) => {    

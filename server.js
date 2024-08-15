@@ -8,6 +8,9 @@ const estudiantesRoutes = require('./routes/estudiantesRoutes');
 const ausenciasRoutes = require('./routes/ausenciasRoutes');
 const anotacionesRoutes = require('./routes/anotacionesRoutes');
 const planillasRoutes = require('./routes/planillasRoutes');
+const cursosRoutes = require('./routes/cursosRoutes');
+const areasRoutes = require('./routes/areasRoutes');
+const areasPorEstudiantesRoutes = require('./routes/areasPorEstudiantesRoutes');
 const cors = require('cors')
 
 
@@ -24,13 +27,16 @@ app.use('/api', estudiantesRoutes);
 app.use('/api', ausenciasRoutes);
 app.use('/api', anotacionesRoutes);
 app.use('/api', planillasRoutes);
+app.use('/api', cursosRoutes);
+app.use('/api', areasRoutes);
+app.use('/api', areasRoutes);
+app.use('/api', areasPorEstudiantesRoutes);
 
 
 // Conectar a la base de datos MongoDB
 {/*`mongodb+srv://koki:${'2541Koki'}@cluster0.t72sj29.mongodb.net/escuela?retryWrites=true&w=majority&appName=Cluster0`*/}
 
 mongoose.connect(`mongodb+srv://koki:${'2541Koki'}@cluster0.t72sj29.mongodb.net/escuela?retryWrites=true&w=majority&appName=Cluster0`,
-
 {
     useNewUrlParser: true,
     useUnifiedTopology: true

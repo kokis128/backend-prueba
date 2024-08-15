@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 
-
-
 const estudianteSchema = new mongoose.Schema({
     apellido: {
     type : String,   
@@ -11,20 +9,22 @@ const estudianteSchema = new mongoose.Schema({
         type: String,
         required:true      
     },
-
     dni:{
         type: String,        
         maxlength: 8,
-     },
-        
+     },        
     observaciones:{
         type: String,       
     },
-
     materiaId:{
         type: mongoose.Schema.Types.ObjectId,
         ref:'Materia'
+    },
+    cursoId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Curso'
     }
+
 
 }
 );

@@ -1,37 +1,36 @@
 const express = require('express');
 const router = express.Router();
-const Materia = require('../models/materias');
+const Area = require('../models/areas');
 const now = new Date();
 const options = { timeZone: 'America/Argentina/Buenos_Aires' };
 const horaArgentina = now.toLocaleTimeString('es-AR', options);
 
-
-router.post('/materia', async (req, res) => {    
+router.post('/area', async (req, res) => {    
     try {
-        const  { name,curso,division,dia,horaInicio,horaFin,observaciones,createdAt,userId,cursoId } = req.body;
-        
-        const MateriEX=Materia.findOne(name);
+        const  { area,materias,informeDescripcion,cursoId } = req.body;
+        console.log(req.body);
+        const MateriEX=Area.findOne(area);
         
         // Crear una nueva materia
-        const newMateria = new Materia({ name,curso,division,dia,horaInicio,horaFin,observaciones,createdAt,userId,cursoId });
-        await newMateria.save();
-        res.status(201).json({ message: 'Materia creada correctamente' });
+        const newArea = new Area({ area,materias,informeDescripcion,cursoId });
+        await newArea.save();
+        res.status(201).json({ message: 'Area creada correctamente' });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 });
-router.get('/materias', async (req, res) => {
+router.get('/areas', async (req, res) => {
     try {
-        const materias = await Materia.find({}); 
+        const areas = await Area.find({}).populate('cursoId');; 
                                        
-        res.json(materias);
+        res.json(areas);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 });
 
 
-router.get('/materia', async (req,res)=>{
+router.get('/area', async (req,res)=>{
 
 try {
     
@@ -39,35 +38,30 @@ try {
    const itemPerPage=req.query.itemPerPage ? req.query.itemPerPage : 3 ;
     const itemsToSkip = req.query.page * 2;
    
-  const searchParams= req.query.name ?
+  const searchParams= req.query.area ?
   
     
-    {name:
+    {area:
     {'$regex':req.query.name,
      '$options':'i'}
     } :
     {}
    console.log(searchParams)
-   const materiasDb=await Materia.find(searchParams)
+   const areasDb=await Area.find(searchParams)
                                     .limit(itemPerPage)
                                     .skip(itemsToSkip)
-                                    .sort({name:-1})
+                                    .sort({area:-1})
                                     .populate('userId')
 
     const claseTotal = await Materia.countDocuments(searchParams)
    res.send({
-    materia:materiasDb,
-    total:claseTotal
+    materia:areasDb,
+    total:areasTotal
 
    });
 } catch (error) {
     res.send(error);
 }
-
-
 })
-
-
-
 
 module.exports = router;

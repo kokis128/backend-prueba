@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const materiaSchema = new Schema({
+const materiaPorCursoSchema = new Schema({
     name: {
     type : String,
     required: true,
-    maxlength: 20   
+    maxlength: 20 
+   
 },
     curso: {
         type: String,        
@@ -36,25 +37,12 @@ const materiaSchema = new Schema({
         maxlength: 100
     },
          
-    userId:{
-            type:String,
-            ref:'User'
-        },
-
     cursoId:{
             type:String,
             ref:'Curso'
         }
-
     }
 );
-const Materia = mongoose.model('Materia',materiaSchema);
+const MateriaPorCurso = mongoose.model('MateriaPorCurso',materiaPorCursoSchema);
 
-module.exports = Materia;
-
-
-
-
-
-
-
+module.exports = MateriaPorCurso;

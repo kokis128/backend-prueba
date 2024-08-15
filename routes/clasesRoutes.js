@@ -9,7 +9,7 @@ const horaArgentina = now.toLocaleTimeString('es-AR', options);
 router.post('/clase', async (req, res) => {  
    
     try {        
-        // Crear una nueva materia
+        // Crear una nueva clase
         const newClase = new Clase(req.body);
         await newClase.save();
         res.status(201).json({ message: 'Clase creada correctamente' });
@@ -53,7 +53,7 @@ const itemsToSkip = req.query.page * 2;
                                     .populate('materiaId')
 
     const claseTotal = await Clase.countDocuments(searchParams)
-   res.json(clases);
+   res.json(clasesDb);
 } catch (error) {
     res.send(error);
 }
