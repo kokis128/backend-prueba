@@ -4,16 +4,18 @@ const Curso = require('../models/cursos');
 
 router.post('/curso', async (req, res) => {
     try {
-        const { curso, division, observaciones } = req.body;
-        console.log( curso, division, observaciones);
+        const { curso, division, turno, objetivos } = req.body;
+        console.log( curso, division, turno, objetivos);
 
         const newCurso = new Curso({
             curso,
             division,
-            observaciones
+            turno,
+            objetivos
         });
 
         await newCurso.save();
+        console.log(newCurso)
         res.status(201).json({ message: 'Curso creado correctamente', curso: newCurso });
     } catch (err) {
         res.status(500).json({ message: err.message });

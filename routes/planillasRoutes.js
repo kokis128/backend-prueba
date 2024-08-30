@@ -34,6 +34,7 @@ router.get('/planillas/:id', async (req, res) => {
 
 
 
+
 module.exports = router;
 
 

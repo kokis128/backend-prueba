@@ -6,17 +6,17 @@ const areaEstudianteSchema = new Schema({
 
     informe: {
         type: String,        
-        maxlength: 200    
+        maxlength: 600   
     },   
 
     nota: {
         type: Number,        
-        maxlength: 10     
+        maxlength: 2   
     },
 
     firma:{
         type:String,
-        maxlength:10
+        maxlength:20
     },
 
     areaId:{

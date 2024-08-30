@@ -18,6 +18,26 @@ router.post('/clase', async (req, res) => {
     }
 });
 
+router.put('/clase/:id', async (req, res) => {
+    try {
+        const claseId = req.params.id;
+        const updatedData = req.body;
+
+        // Actualizar la clase existente con los nuevos datos
+        const updatedClase = await Clase.findByIdAndUpdate(claseId, updatedData, { new: true, runValidators: true });
+
+        if (!updatedClase) {
+            return res.status(404).json({ message: 'Clase no encontrada' });
+        }
+
+        res.status(200).json({ message: 'Clase actualizada correctamente', data: updatedClase });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+
+
 
 router.get('/clases', async (req, res) => {
     try {

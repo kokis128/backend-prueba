@@ -14,12 +14,13 @@ const cursoSchema = new Schema({
     },
     turno:{
         type: String,
-        maxlength: 1 
+        maxlength: 11 
        
     },          
-    observaciones:{
+   
+    objetivos:{
         type: String,
-        maxlength: 100
+        maxlength: 200
     },
          
     userId:{
