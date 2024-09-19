@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const Clase = require('../models/clases');
+
 const now = new Date();
 const options = { timeZone: 'America/Argentina/Buenos_Aires' };
 const horaArgentina = now.toLocaleTimeString('es-AR', options);
+const Clase = require('../models/clases');
 
 
 router.post('/clase', async (req, res) => {  
