@@ -9,15 +9,15 @@ const materiaSchema = new Schema({
 },
     curso: {
         type: String,        
-        maxlength: 10     
+        maxlength: 3     
     },
     division:{
         type: String,
-        maxlength: 10       
+        maxlength: 3       
     },
     turno:{
         type: String,
-        maxlength: 1 
+        maxlength: 10 
        
     },    
         dias: { type: String,

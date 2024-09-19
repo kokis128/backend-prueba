@@ -4,8 +4,8 @@ const { format, parseISO, addDays } = require('date-fns');
 const { formatInTimeZone } = require('date-fns-tz');
 const { es } = require('date-fns/locale'); 
 
-const Materia = require('../models/materias');
-const Clase = require('../models/clases');
+
+
 const Anotacion = require('../models/anotaciones');
 
 const timeZone = 'America/Argentina/Buenos_Aires';
@@ -41,15 +41,61 @@ router.post('/register_anotaciones', async (req, res) => {
     materia_id,
     anotacion
   }));
+  console.log('anotaciones agrgar',anotacionesBd);
 
   try {
     await Anotacion.insertMany(anotacionesBd);
-    res.json({ success: true });
+    res.json(anotacionesBd);
   } catch (err) {
     console.error(err);
     res.status(500).json({ success: false, message: 'Error al registrar las anotaciones' });
   }
 });
+
+
+router.put('/update_anotaciones/:_id', async (req, res) => {
+  const { anotacion } = req.body;
+  const { _id } = req.params; // Acceder al id de la URL
+ 
+  console.log('id recibido:', _id);
+ 
+  if (!_id || !anotacion) {
+  
+    return res.status(400).json({ success: false, message: 'Datos de anotaciones incompletos o incorrectos' });
+  }
+  console.log("anotacion recibida:",anotacion)
+  
+ 
+try{
+  const anotacioUpdated =  await Anotacion.findByIdAndUpdate( _id, {anotacion:anotacion} , { new: true, runValidators: true });
+  if (!anotacioUpdated) {
+    
+    return  res.status(400).json({ success: false, message: 'Datos de anotaciones incompletos o incorrectos' });
+
+    
+}
+res.status(200).json({ message: 'Anotación actualizada correctamente', anotacion: anotacioUpdated });
+console.log('anotacion para guardar',anotacioUpdated);
+}
+catch{
+    // Manejo de errores
+    console.error('Error al actualizar la anotación:', error);
+    res.status(500).json({ success: false, message: 'Error al actualizar la anotación' });
+ 
+  }});
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 router.get('/register_anotacion/:materia_id', async (req, res) => {
   const { materia_id } = req.params;
