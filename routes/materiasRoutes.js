@@ -7,7 +7,7 @@ const now = new Date();
 const options = { timeZone: 'America/Argentina/Buenos_Aires' };
 const horaArgentina = now.toLocaleTimeString('es-AR', options);
 
-const Clase = require('../models/Clases');
+const Clase = require('../models/clases');
 const Anotacion = require('../models/anotaciones');
 
 const Ausencia = require('../models/ausencias');
