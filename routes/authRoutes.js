@@ -6,15 +6,15 @@ const User = require('../models/user');
 
 
 router.post('/signup', async (req, res) => {
-    const { username, password } = req.body;
+    const { nombre,apellido,email,password,funcion  } = req.body;
     try {
         // Verificar si el usuario ya existe en la base de datos
-        const existingUser = await User.findOne({ username });
-        if (existingUser) {
+        const existingEmail = await User.findOne({ email });
+        if (existingEmail) {
             return res.status(400).json({ message: 'El usuario ya existe' });
         }else{
         // Crear un nuevo usuario
-        const newUser = new User({ username, password });
+        const newUser = new User({ nombre,apellido,email,password,funcion });
         await newUser.save();
         res.status(201).json({ message: 'Usuario creado correctamente' })};
     } catch (err) {
@@ -72,16 +72,16 @@ router.delete('/user/:id', async (req, res) => {
 router.post('/user/login', async (req, res) => {  
     
         try {
-            const { username, password } = req.body;
+            const { email, password } = req.body;
 
-            const userDB = await User.findOne({ username });           
+            const userDB = await User.findOne({ email });           
             if (!userDB) {                
                 return res.status(404).send({ msg: 'El usuario no existe en la base de datos' });                
             }
                      
             const isValidPassword = await password==userDB.password;
             if (!isValidPassword) {
-                return res.status(401).send({ msg: 'El nombre de usuario o la contraseña son incorrectos' });
+                return res.status(401).send({ msg: 'El email o la contraseña son incorrectos' });
             }
             
            

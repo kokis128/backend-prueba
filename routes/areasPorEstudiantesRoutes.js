@@ -11,7 +11,7 @@ router.post('/areaEstudiante', async (req, res) => {
         const { informe, nota, firma, areaId, estudianteId } = req.body;
 
         // Verifica que todos los campos necesarios estén presentes
-        if (!informe || !nota || !firma || !areaId || !estudianteId) {
+        if ( !areaId || !estudianteId) {
             return res.status(400).json({ message: 'Faltan campos requeridos' });
         }
 
