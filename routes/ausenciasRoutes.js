@@ -9,12 +9,12 @@ const options = { timeZone: 'America/Argentina/Buenos_Aires' };
 const horaArgentina = now.toLocaleTimeString('es-AR', options);
 
 router.post('/register_absences', async (req, res) => {
-    const { ausentes, materia_id, fecha } = req.body;
+    const { ausentes, materia_id, fecha,clase_id } = req.body;
     if (!Array.isArray(ausentes) ) {
       return res.status(400).json({ success: false, message: 'Datos de ausencias incompletos' });
     }
   
-    const ausencias = ausentes.map(id => ({ student_id: id, materia_id: materia_id, fecha:fecha}));
+    const ausencias = ausentes.map(id => ({ student_id: id, materia_id: materia_id, fecha:fecha,clase_id:clase_id}));
   
     try {
       await Ausencia.insertMany(ausencias);

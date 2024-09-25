@@ -7,15 +7,20 @@ const User = require('../models/user');
 
 router.post('/signup', async (req, res) => {
     const { nombre,apellido,email,password,funcion  } = req.body;
+    
     try {
+        console.log('email',email);
         // Verificar si el usuario ya existe en la base de datos
-        const existingEmail = await User.findOne({ email });
+        const existingEmail = await User.findOne({email});
+        console.log(existingEmail)
         if (existingEmail) {
             return res.status(400).json({ message: 'El usuario ya existe' });
         }else{
         // Crear un nuevo usuario
         const newUser = new User({ nombre,apellido,email,password,funcion });
+        console.log(newUser);
         await newUser.save();
+        
         res.status(201).json({ message: 'Usuario creado correctamente' })};
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -76,7 +81,7 @@ router.post('/user/login', async (req, res) => {
 
             const userDB = await User.findOne({ email });           
             if (!userDB) {                
-                return res.status(404).send({ msg: 'El usuario no existe en la base de datos' });                
+                return res.status(404).send({ msg: 'El usuario o la contraseña no son correctos' });                
             }
                      
             const isValidPassword = await password==userDB.password;

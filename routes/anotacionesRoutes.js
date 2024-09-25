@@ -25,7 +25,7 @@ const formatDateInArgentina = (fecha) => {
 };
 
 router.post('/register_anotaciones', async (req, res) => {
-  const { materia_id, anotaciones, fecha } = req.body;
+  const { materia_id, anotaciones, clase_id, fecha } = req.body;
   console.log('Fecha recibida:', fecha);
  
   if (!materia_id || !Array.isArray(anotaciones)) {
@@ -39,6 +39,7 @@ router.post('/register_anotaciones', async (req, res) => {
     fecha:formattedFecha,
     student_id,
     materia_id,
+    clase_id,
     anotacion
   }));
   console.log('anotaciones agrgar',anotacionesBd);

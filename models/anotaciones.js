@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const AnotacionSchema = new mongoose.Schema({
   student_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Estudiante', required: true },
   materia_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Materia', required: true },
+  clase_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Clase', required: true },
   anotacion: {type:String},  
   fecha: { type: Date, required: true }
 });

@@ -5,6 +5,9 @@ const now = new Date();
 const options = { timeZone: 'America/Argentina/Buenos_Aires' };
 const horaArgentina = now.toLocaleTimeString('es-AR', options);
 const Clase = require('../models/clases');
+const Anotacion = require('../models/anotaciones');
+
+const Ausencia = require('../models/ausencias');
 
 
 router.post('/clase', async (req, res) => {  
@@ -13,7 +16,7 @@ router.post('/clase', async (req, res) => {
         // Crear una nueva clase
         const newClase = new Clase(req.body);
         await newClase.save();
-        res.status(201).json({ message: 'Clase creada correctamente' });
+        res.status(201).json( newClase );
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
@@ -35,6 +38,33 @@ router.put('/clase/:id', async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
+});
+
+router.delete('/clase/:id', async (req, res) => {
+    try {
+        const claseId = req.params.id;
+        await Anotacion.deleteMany({ clase_id: claseId });
+        await Ausencia.deleteMany({ clase_id: claseId });
+
+        // Actualizar la clase existente con los nuevos datos
+        const deletedClase = await Clase.findByIdAndDelete(claseId);
+        
+       
+
+        if (deletedClase) {
+            return res.status(200).json({message:'Clase Borrada correctamente'});
+    }else{
+        return res.status(404).json({message:'clase no encontrada'});
+    }
+    }catch (error){
+    console.error(error);
+    return res.status(500).json({message:'Error al borrar la materia'});
+    }
+
+       
+
+        
+    
 });
 
 

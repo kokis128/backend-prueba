@@ -6,19 +6,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true, 
-        validate: {
-          validator: function(v) {
-            // Expresión regular para validar el formato de un correo electrónico
-            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-          },
-          message: props => `${props.value} no es un correo electrónico válido!`
-        }
+       
       },
 
     password: {
         type: String,
         required: true,
-        maxlength: 8, // Máximo de 20 caracteres
+        maxlength: 8, // Máximo de 8 caracteres
     },
 
     nombre:{
@@ -38,7 +32,13 @@ const userSchema = new mongoose.Schema({
         required: true,
         maxlength: 10,
 
+    },
+    role: {
+      type: String,
+      enum: ['user', 'admin'],
+      default: 'user'
     }
+   
 });
 
 module.exports = mongoose.model('User', userSchema);

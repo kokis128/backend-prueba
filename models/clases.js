@@ -24,7 +24,7 @@ const claseSchema = new mongoose.Schema({
         type: Number,      
     },   
     unidad: {
-        type: Number,      
+        type: String,      
     }, 
 
     asistencia:{
