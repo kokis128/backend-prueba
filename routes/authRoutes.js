@@ -81,18 +81,18 @@ router.post('/user/login', async (req, res) => {
 
             const userDB = await User.findOne({ email });           
             if (!userDB) {                
-                return res.status(404).send({ msg: 'El usuario o la contraseña no son correctos' });                
+                return res.status(404).json({ msg: 'El usuario o la contraseña no son correctos' });                
             }
                      
             const isValidPassword = await password==userDB.password;
             if (!isValidPassword) {
-                return res.status(401).send({ msg: 'El email o la contraseña son incorrectos' });
+                return res.status(401).json({ msg: 'El email o la contraseña son incorrectos' });
             }
             
            
             userDB.password=undefined;
 
-            return res.status(200).send({
+            return res.status(200).json({
                 ok:true,
                 msg:'Login correcto',
                 user : userDB
@@ -101,7 +101,7 @@ router.post('/user/login', async (req, res) => {
             
         } catch (error) {
 
-            res.status(400).send(error);
+            res.status(400).json(error);
             
         }
   
