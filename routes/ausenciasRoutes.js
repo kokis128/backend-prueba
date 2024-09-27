@@ -96,7 +96,7 @@ router.post('/register_absences', async (req, res) => {
     try {
       // Obtener todos los estudiantes matriculados en la materia
       const ausentes = await Ausencia.find({});
-      console.log(ausentes);
+      
       
       if (!ausentes) {
         return res.status(404).json({ success: false, message: 'Ausencias no encontradas' });

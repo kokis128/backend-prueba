@@ -4,6 +4,7 @@ const Area = require('../models/areas');
 const now = new Date();
 const options = { timeZone: 'America/Argentina/Buenos_Aires' };
 const horaArgentina = now.toLocaleTimeString('es-AR', options);
+const AreaEstudiante = require('../models/areasPorEstudiante');
 
 router.post('/area', async (req, res) => {    
     try {
@@ -63,5 +64,24 @@ try {
     res.send(error);
 }
 })
+
+router.delete('/areas/:id', async (req, res) => {
+    try {
+        const id=req.params.id;
+        console.log(id);
+        await AreaEstudiante.deleteMany({ areaId: id });
+        const areaDeleted = await Area.findByIdAndDelete(id);; 
+        if(areaDeleted){                 
+        res.status(200).json({message:'Area eliminada'});
+        }else{
+            res.status(400).json({message:'No se pudo eliminar'})
+        }
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+
+
 
 module.exports = router;
