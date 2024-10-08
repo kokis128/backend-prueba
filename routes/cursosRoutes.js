@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Curso = require('../models/cursos');
+const { findByIdAndDelete } = require('../models/clases');
 
 router.post('/curso', async (req, res) => {
     try {
@@ -49,6 +50,24 @@ router.get('/curso', async (req, res) => {
             cursos: cursosDb
             
         });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+
+router.delete('/curso/:_id', async (req, res) => {
+    try {
+        const { _id } = req.params;
+        console.log(_id);
+
+        const cursoEliminado = await Curso.findByIdAndDelete(_id);
+        if (!cursoEliminado) {
+            return res.status(404).json({ message: 'Curso no encontrado' });
+        }
+       
+        console.log(cursoEliminado)
+        res.status(201).json({ message: 'Curso eliminado correctamente' });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }

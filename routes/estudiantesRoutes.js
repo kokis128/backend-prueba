@@ -196,4 +196,29 @@ router.get('/cursos', async (req, res) => {
     }
 });
 
+router.put('/estudiante', async (req, res) => {    
+    try {
+        const { _id } = req.body;
+        console.log(_id);
+        const estudianteCurso = await Estudiante.findOne({_id} );
+        console.log(estudianteCurso);
+        if (!_id) {
+            return res.status(400).json({ message: 'DNI del estudiante no proporcionado' });
+        }
+
+        estudianteCurso.cursoId=null;
+        console.log(estudianteCurso);
+        estudianteCurso.save();
+
+
+
+      
+        
+        res.status(201).json({ message: 'Estudiante modificado correctamente' });
+      
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 module.exports = router;
