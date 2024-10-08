@@ -196,29 +196,38 @@ router.get('/cursos', async (req, res) => {
     }
 });
 
-router.put('/estudiante', async (req, res) => {    
+router.delete('/estudiante/:id', async (req, res) => {
+    const estudianteId = req.params.id;
+  
     try {
-        const { _id } = req.body;
-        console.log(_id);
-        const estudianteCurso = await Estudiante.findOne({_id} );
-        console.log(estudianteCurso);
-        if (!_id) {
-            return res.status(400).json({ message: 'DNI del estudiante no proporcionado' });
-        }
-
-        estudianteCurso.cursoId=null;
-        console.log(estudianteCurso);
-        estudianteCurso.save();
-
-
-
-      
-        
-        res.status(201).json({ message: 'Estudiante modificado correctamente' });
-      
-    } catch (err) {
-        res.status(500).json({ message: err.message });
+      const result = await Estudiante.findByIdAndDelete(estudianteId);
+  
+      if (!result) {
+        return res.status(404).json({ message: 'Estudiante no encontrado' });
+      }
+  
+      res.status(200).json({ message: 'Estudiante eliminado correctamente' });
+    } catch (error) {
+      console.error('Error al eliminar estudiante:', error);
+      res.status(500).json({ message: 'Error en el servidor' });
     }
-});
+  });
 
+
+  router.delete('/estudiante/:id', async (req, res) => {
+    const estudianteId = req.params.id;
+  
+    try {
+      const result = await Estudiante.findByIdAndDelete(estudianteId);
+  
+      if (!result) {
+        return res.status(404).json({ message: 'Estudiante no encontrado' });
+      }
+  
+      res.status(200).json({ message: 'Estudiante eliminado correctamente' });
+    } catch (error) {
+      console.error('Error al eliminar estudiante:', error);
+      res.status(500).json({ message: 'Error en el servidor' });
+    }
+  });
 module.exports = router;
