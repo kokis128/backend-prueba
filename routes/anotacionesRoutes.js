@@ -27,6 +27,7 @@ const formatDateInArgentina = (fecha) => {
 router.post('/register_anotaciones', async (req, res) => {
   const { materia_id, anotaciones, clase_id, fecha } = req.body;
   console.log('Fecha recibida:', fecha);
+  console.log(req.body);
  
   if (!materia_id || !Array.isArray(anotaciones)) {
     return res.status(400).json({ success: false, message: 'Datos de anotaciones incompletos o incorrectos' });

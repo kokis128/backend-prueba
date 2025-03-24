@@ -5,7 +5,7 @@ const materiaSchema = new Schema({
     name: {
     type : String,
     required: true,
-    maxlength: 20   
+    maxlength: 30   
 },
     curso: {
         type: String,        
